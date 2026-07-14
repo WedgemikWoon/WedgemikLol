@@ -1,21 +1,36 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>My IP Checker</title>
+  <title>IP Consent Test</title>
 </head>
 <body>
-  <h1>Your Public IP Address</h1>
-  <p id="ip">Loading...</p>
 
-  <script>
-    fetch("https://api.ipify.org?format=json")
-      .then(response => response.json())
-      .then(data => {
-        document.getElementById("ip").textContent = data.ip;
-      })
-      .catch(() => {
-        document.getElementById("ip").textContent = "Could not get IP";
-      });
-  </script>
+<h2>Privacy Notice</h2>
+<p>
+  By clicking "Allow", you agree that your IP address may be collected
+  for this test.
+</p>
+
+<button id="allow">Allow</button>
+<button id="deny">Deny</button>
+
+<p id="result"></p>
+
+<script>
+document.getElementById("allow").onclick = async () => {
+  await fetch("/collect-ip", {
+    method: "POST"
+  });
+
+  document.getElementById("result").innerText =
+    "Consent given. IP recorded.";
+};
+
+document.getElementById("deny").onclick = () => {
+  document.getElementById("result").innerText =
+    "No information collected.";
+};
+</script>
+
 </body>
 </html>

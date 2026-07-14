@@ -1,35 +1,32 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>IP Consent Test</title>
-</head>
 <body>
 
-<h2>Privacy Notice</h2>
+<h2>IP Collection Test</h2>
+
 <p>
-  By clicking "Allow", you agree that your IP address may be collected
-  for this test.
+Click Allow to consent to sending your IP address for this test.
 </p>
 
-<button id="allow">Allow</button>
-<button id="deny">Deny</button>
+<button onclick="allow()">Allow</button>
+<button onclick="deny()">Deny</button>
 
-<p id="result"></p>
+<p id="msg"></p>
 
 <script>
-document.getElementById("allow").onclick = async () => {
-  await fetch("/collect-ip", {
-    method: "POST"
-  });
+async function allow() {
+    await fetch("/collect-ip", {
+        method: "POST"
+    });
 
-  document.getElementById("result").innerText =
-    "Consent given. IP recorded.";
-};
+    document.getElementById("msg").innerText =
+        "Consent recorded.";
+}
 
-document.getElementById("deny").onclick = () => {
-  document.getElementById("result").innerText =
-    "No information collected.";
-};
+function deny() {
+    document.getElementById("msg").innerText =
+        "Nothing collected.";
+}
 </script>
 
 </body>

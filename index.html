@@ -1,34 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Click Counter</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin-top: 100px;
-        }
-
-        button {
-            padding: 12px 24px;
-            font-size: 18px;
-            cursor: pointer;
-        }
-
-        p {
-            margin-top: 20px;
-            font-size: 22px;
-        }
-    </style>
+  <title>My IP Checker</title>
 </head>
 <body>
+  <h1>Your Public IP Address</h1>
+  <p id="ip">Loading...</p>
 
-    <button id="magicBtn">Click Me!</button>
-    <p id="messageText">Press the button to begin.</p>
-
-    <script src="Wedge.js"></script>
-
+  <script>
+    fetch("https://api.ipify.org?format=json")
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById("ip").textContent = data.ip;
+      })
+      .catch(() => {
+        document.getElementById("ip").textContent = "Could not get IP";
+      });
+  </script>
 </body>
 </html>
